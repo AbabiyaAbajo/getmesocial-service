@@ -1,1 +1,1 @@
-# getmesocial-service
+# getmesocial-com.example.getmesocialservice.service
