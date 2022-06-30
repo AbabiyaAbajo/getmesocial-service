@@ -2,6 +2,7 @@ package com.example.getmesocialservice.model;
 
 public class User {
 
+    private int UserId;
     String name;
     String address;
     int age;
@@ -11,10 +12,20 @@ public class User {
     Constructor for User class with @param String name, String address, int age, String profilePicUrl
      */
     public User(String name, String address, int age, String profilePicUrl) {
+
+
         this.name = name;
         this.address = address;
         this.age = age;
         this.profilePicUrl = profilePicUrl;
+    }
+
+    public int getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(int userId) {
+        UserId = userId;
     }
 
     public String getName() {
