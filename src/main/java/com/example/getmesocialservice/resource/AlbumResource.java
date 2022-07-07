@@ -6,38 +6,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController  //Spring will understand that there are rest endpoint here
-@RequestMapping("/api") //endpoint path. Methods will start with server/api. (Example: http://localhost:8080/api/album)
+@RequestMapping("/api/album") //endpoint path. Methods will start with server/api. (Example: http://localhost:8080/api/album)
 public class AlbumResource {
 
     @Autowired
     private AlbumService aService;
 
-    @GetMapping("/album")
-    public List<Album> getAllAlbum() {
-        return aService.getAllAlbum();
 
-    }
-
-    @GetMapping("/album/{albumId}")
-    public Album getUserById(@PathVariable("albumId") int albumId){
-        return aService.getAlbumById(albumId);
-    }
-
-    @PostMapping("/album")
+    @PostMapping
     public Album createAlbum(@RequestBody Album a){
         return aService.createAlbum(a);
     }
 
-    @PutMapping("/album/{albumId}")
-    public Album updateAlbum(@PathVariable("albumId") int albumId, @RequestBody Album a){
-        return aService.updateAlbum(albumId, a);
+
+    @GetMapping
+    public List<Album> getAllAlbum() {
+        return aService.getAllAlbum();
     }
 
-    @DeleteMapping("/album")
-    public Album deleteAlbum(@RequestParam(name = "albumid") int albumId){
-        return aService.deleteAlbum(albumId);
+    @GetMapping("/findById")
+    public Optional<Album> getUserById(@RequestParam(name = "albumId") String albumId){
+        return aService.getAlbumById(albumId);
+    }
+
+    @PutMapping
+    public Album updateAlbum(@RequestBody Album a){
+        return aService.updateAlbum(a);
+    }
+
+    @DeleteMapping
+    public void deleteAlbum(@RequestParam(name = "albumid") String albumId){
+        aService.deleteAlbum(albumId);
     }
 
 }

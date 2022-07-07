@@ -6,24 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController  //Spring will understand that there are rest endpoint here
-@RequestMapping("/api") //endpoint path. Methods will start with server/api. (Example: http://localhost:8080/api/user)
+@RequestMapping("/api/user") //endpoint path. Methods will start with server/api. (Example: http://localhost:8080/api/user)
 public class UserResource {
 
     @Autowired //Connection between autowired and service. We wont be initializing this object. Spring will do it.
     private UserService uService;
-
-    /*
-        Function to return a user.
-        We using the GetMapping annotation for the rest api.
-     */
-    @GetMapping("/user")
-    public User getUser() {
-        return uService.getUser();
-    }
-
 
     /*
     @RequestBody, lets us know that we need to parameters to be provided by the user and this will be provided in the
@@ -31,32 +22,54 @@ public class UserResource {
 
     Function returns the response to the POST request. We can see that this is a post request by the PostMapping annotation.
      */
-    @PostMapping("/user")
+    @PostMapping
     public User saveUser(@RequestBody User u) {
         return uService.saveUser(u);
     }
 
-
     /*
     Cant use get with /user since there's another get method using it right now
     */
-    @GetMapping("/allUsers")
+    @GetMapping
     public List<User> getAllUsers(){
         return uService.getAllUsers();
     }
 
-    @GetMapping("/user/{userId}")
-    public User getUserById(@PathVariable("userId") int userId){
+    @GetMapping("/findByAddress")
+    public List<User> getByAddress(@RequestParam(name = "address") String address) {
+        return uService.getByAddress(address);
+    }
+
+    @GetMapping("/finById")
+    public Optional<User> getUserById(@RequestParam(name = "userId") String userId){
         return uService.getUserById(userId);
     }
 
-    @PutMapping("/user/{userId}")
-    public User updateUser(@PathVariable("userId") int userId, @RequestBody User u){
-        return uService.updateUser(userId, u);
+    @PutMapping
+    public User updateUser(@RequestBody User u){
+        return uService.updateUser(u);
     }
 
-    @DeleteMapping("/user")
-    public User deleteUser(@RequestParam(name = "user") int userID) {
-        return uService.deleteUser(userID);
+    @DeleteMapping
+    public void deleteUser(@RequestParam(name = "User ID") String userID) {
+        uService.deleteUser(userID);
     }
+
+//    /*
+//        Function to return a user.
+//        We using the GetMapping annotation for the rest api.
+//     */
+//    @GetMapping("/user")
+//    public User getUser() {
+//        return uService.getUser();
+//    }
+
+
+//    @GetMapping("/user/{userId}")
+//    public User getUserById(@PathVariable("userId") int userId){
+//        return uService.getUserById(userId);
+//    }
+
+
+
 }

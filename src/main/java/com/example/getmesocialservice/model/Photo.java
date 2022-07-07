@@ -2,20 +2,27 @@ package com.example.getmesocialservice.model;
 
 import org.springframework.data.annotation.Id;
 
-public class Album {
+public class Photo {
 
     @Id
+    private String photoId;
     private String albumId;
-    private String name;
-    private String coverPicUrl;
+    private String photoUrl;
     private String createdBy;
     private String dateCreated;
 
-    public Album(String name, String createdBy, String coverPicUrl, String dateCreated) {
-        this.name = name;
+    public Photo(String photoUrl, String createdBy, String dateCreated) {
+        this.photoUrl = photoUrl;
         this.createdBy = createdBy;
-        this.coverPicUrl = coverPicUrl;
         this.dateCreated = dateCreated;
+    }
+
+    public String getPhotoId() {
+        return photoId;
+    }
+
+    public void setPhotoId(String photoId) {
+        this.photoId = photoId;
     }
 
     public String getAlbumId() {
@@ -26,21 +33,12 @@ public class Album {
         this.albumId = albumId;
     }
 
-    public String getName() {
-        return name;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    public String getCoverPicUrl() {
-        return coverPicUrl;
-    }
-
-    public void setCoverPicUrl(String coverPicUrl) {
-        this.coverPicUrl = coverPicUrl;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
     public String getCreatedBy() {
