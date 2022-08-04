@@ -5,6 +5,7 @@ import com.example.getmesocialservice.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +18,7 @@ public class AlbumResource {
 
 
     @PostMapping
-    public Album createAlbum(@RequestBody Album a){
+    public Album createAlbum(@RequestBody @Valid Album a){
         return aService.createAlbum(a);
     }
 
@@ -33,7 +34,7 @@ public class AlbumResource {
     }
 
     @PutMapping
-    public Album updateAlbum(@RequestBody Album a){
+    public Album updateAlbum(@RequestBody @Valid Album a){
         return aService.updateAlbum(a);
     }
 

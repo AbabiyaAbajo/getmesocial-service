@@ -1,25 +1,33 @@
 package com.example.getmesocialservice.model;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
 public class User {
 
     @Id
     private String Id;
+    @NotEmpty
     private String name;
+    @Length(max = 10)
     private String address;
+    @Min(value = 13) @Max(value = 99)
     private int age;
+    @Email()
+    private String email;
+    @NotEmpty
     private String profilePicUrl;
 
-    /*
-    Constructor for User class with @param String name, String address, int age, String profilePicUrl
-     */
-    public User(String name, String address, int age, String profilePicUrl) {
-
-
+    public User(@NotEmpty String name, @Length(max = 10) String address, @Min(value = 13) @Max(value = 99) int age, @Email() String email, @NotEmpty String profilePicUrl) {
         this.name = name;
         this.address = address;
         this.age = age;
+        this.email = email;
         this.profilePicUrl = profilePicUrl;
     }
 
@@ -55,11 +63,21 @@ public class User {
         this.age = age;
     }
 
-//    public String getProfilePicUrl() {
-//        return profilePicUrl;
-//    }
-//
-//    public void setProfilePicUrl(String profilePicUrl) {
-//        this.profilePicUrl = profilePicUrl;
-//    }
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getProfilePicUrl() {
+        return profilePicUrl;
+    }
+
+    public void setProfilePicUrl(String profilePicUrl) {
+        this.profilePicUrl = profilePicUrl;
+    }
+
+
 }

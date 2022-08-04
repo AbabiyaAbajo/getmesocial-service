@@ -7,6 +7,7 @@ import com.example.getmesocialservice.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ public class CommentResource {
 
 
     @PostMapping
-    public Comment createComment(@RequestBody Comment c){
+    public Comment createComment(@RequestBody @Valid Comment c){
         return cService.createComment(c);
     }
 
@@ -35,7 +36,7 @@ public class CommentResource {
     }
 
     @PutMapping
-    public Comment updateComment(@RequestBody Comment c){
+    public Comment updateComment(@RequestBody @Valid Comment c){
         return cService.updateComment(c);
     }
 

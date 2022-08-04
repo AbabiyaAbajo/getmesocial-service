@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +21,7 @@ public class PhotoResource {
 
 
     @PostMapping
-    public Photo createPhoto(@RequestBody Photo p){
+    public Photo createPhoto(@RequestBody @Valid Photo p){
         return pService.createPhoto(p);
     }
 
@@ -35,7 +36,7 @@ public class PhotoResource {
     }
 
     @PutMapping
-    public Photo updatePhoto(@RequestBody Photo p){
+    public Photo updatePhoto(@RequestBody @Valid Photo p){
         return pService.updatePhoto(p);
     }
 

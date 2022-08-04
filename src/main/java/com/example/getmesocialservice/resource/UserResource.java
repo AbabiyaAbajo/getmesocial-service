@@ -1,11 +1,16 @@
 package com.example.getmesocialservice.resource;
 
+import com.example.getmesocialservice.exception.RestrictedInfoException;
 import com.example.getmesocialservice.model.User;
 import com.example.getmesocialservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 
@@ -23,7 +28,10 @@ public class UserResource {
     Function returns the response to the POST request. We can see that this is a post request by the PostMapping annotation.
      */
     @PostMapping
-    public User saveUser(@RequestBody User u) {
+    public User saveUser(@RequestBody @Valid User u) throws RestrictedInfoException {
+        if(u.getName().equalsIgnoreCase("root")){
+            throw new RestrictedInfoException();
+        }
         return uService.saveUser(u);
     }
 
@@ -36,17 +44,26 @@ public class UserResource {
     }
 
     @GetMapping("/findByAddress")
-    public List<User> getByAddress(@RequestParam(name = "address") String address) {
+    public List<User> getByAddress(@RequestParam(name = "address") String address) throws RestrictedInfoException {
+        if(address.equalsIgnoreCase("ethiopia")){
+            throw new RestrictedInfoException();
+        }
         return uService.getByAddress(address);
     }
 
+
     @GetMapping("/finById")
-    public Optional<User> getUserById(@RequestParam(name = "userId") String userId){
-        return uService.getUserById(userId);
+    public User getUserById(@RequestParam(name = "userId") String userId) throws RestrictedInfoException {
+        User u = uService.getUserById(userId);
+        if(u.getName().equalsIgnoreCase("root")){
+            throw new RestrictedInfoException();
+        }
+        return u;
     }
 
+
     @PutMapping
-    public User updateUser(@RequestBody User u){
+    public User updateUser(@RequestBody @Valid User u){
         return uService.updateUser(u);
     }
 

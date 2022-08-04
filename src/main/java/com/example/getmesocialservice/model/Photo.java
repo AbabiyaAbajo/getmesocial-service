@@ -1,6 +1,10 @@
 package com.example.getmesocialservice.model;
 
+import com.example.getmesocialservice.validation.ValidName;
 import org.springframework.data.annotation.Id;
+
+import javax.validation.constraints.Pattern;
+import java.util.Date;
 
 public class Photo {
 
@@ -8,13 +12,15 @@ public class Photo {
     private String photoId;
     private String albumId;
     private String photoUrl;
+//    @Pattern(regexp="^[a-z0-9]",message="must be in lower case letters and numbers")
+    @ValidName(message = "must be in lower case letters and numbers")
     private String createdBy;
-    private String dateCreated;
+    private Date dateCreated;
 
-    public Photo(String photoUrl, String createdBy, String dateCreated) {
+    public Photo(String photoUrl, String createdBy) {
         this.photoUrl = photoUrl;
         this.createdBy = createdBy;
-        this.dateCreated = dateCreated;
+
     }
 
     public String getPhotoId() {
@@ -49,11 +55,5 @@ public class Photo {
         this.createdBy = createdBy;
     }
 
-    public String getDateCreated() {
-        return dateCreated;
-    }
 
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
-    }
 }

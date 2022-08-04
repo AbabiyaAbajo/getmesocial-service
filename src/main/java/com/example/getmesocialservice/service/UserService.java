@@ -36,8 +36,9 @@ public class UserService {
         return uRepo.findAllByAddress(address);
     }
 
-    public Optional<User> getUserById(String userId) {
-        return uRepo.findById(userId);
+
+    public User getUserById(String userId) {
+        return uRepo.findById(userId).get();
     }
 
 //    public User getUser() {
